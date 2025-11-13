@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Julianna Elise | Swipe Through My Story</title>
+  <title>Julianna Elise | Swipe Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg-1: #fef3c7;   /* soft yellow */
-      --bg-2: #e0f2fe;   /* light blue */
-      --bg-3: #fee2e2;   /* light red/pink */
+      --bg-top: #ffecd2;
+      --bg-bottom: #fcb69f;
       --card-bg: #ffffff;
-      --accent: #ec4899; /* pink */
-      --accent-2: #6366f1; /* indigo */
-      --accent-3: #22c55e; /* green */
+      --card-border: #e5e7eb;
       --text-main: #111827;
       --text-muted: #6b7280;
-      --radius-card: 22px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.18);
+      --accent-info: #22c55e;
+      --accent-nope: #ef4444;
+      --accent-tag: #6366f1;
+      --radius-card: 24px;
+      --shadow-card: 0 22px 45px rgba(15, 23, 42, 0.3);
       --transition-fast: 0.22s ease-out;
     }
 
@@ -29,121 +29,133 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
+      background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
       display: flex;
       justify-content: center;
-      padding: 24px;
-      background: radial-gradient(circle at top left, var(--bg-1), transparent 50%),
-                  radial-gradient(circle at bottom right, var(--bg-2), transparent 55%),
-                  radial-gradient(circle at center, var(--bg-3), transparent 55%),
-                  #f9fafb;
+      align-items: center;
+      padding: 20px;
       color: var(--text-main);
     }
 
-    .page {
+    .app-shell {
       width: 100%;
-      max-width: 900px;
+      max-width: 420px;
+      height: 700px;
+      max-height: 100vh;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 55px rgba(15, 23, 42, 0.4);
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      padding: 18px 16px 16px;
     }
 
-    header {
+    /* Top bar like an app */
+    .top-bar {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
     }
 
-    @media (min-width: 720px) {
-      header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .name {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: 0.03em;
+    .top-left {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .name span {
-      font-size: 1.2rem;
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f97316, #ec4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
     }
 
-    .tagline {
-      font-size: 0.98rem;
+    .name-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .name-main {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .name-sub {
+      font-size: 0.74rem;
       color: var(--text-muted);
-      max-width: 520px;
     }
 
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 6px;
+    .top-right {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
     }
 
-    .pill {
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      backdrop-filter: blur(6px);
-    }
-
-    .badge-fun {
-      font-size: 0.78rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #1f2937;
-      color: #f9fafb;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* Card area */
-    .card-shell {
+    /* Swipe area */
+    .swipe-area {
       position: relative;
-      min-height: 350px;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-top: 6px;
+      margin-bottom: 10px;
     }
 
+    /* Stacked fake cards in background */
+    .card-stack {
+      position: absolute;
+      width: 86%;
+      max-width: 360px;
+      height: 78%;
+      border-radius: var(--radius-card);
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transform: translateY(22px);
+      z-index: 0;
+    }
+
+    .card-stack:nth-child(1) {
+      transform: translateY(28px) scale(0.96);
+      opacity: 0.5;
+    }
+
+    .card-stack:nth-child(2) {
+      transform: translateY(16px) scale(0.98);
+      opacity: 0.7;
+    }
+
+    /* Main card */
     .card {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 380px;
+      height: 80%;
       background: var(--card-bg);
       border-radius: var(--radius-card);
-      box-shadow: var(--shadow-soft);
-      padding: 22px 22px 18px;
-      max-width: 720px;
-      margin-inline: auto;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
       transform-origin: center;
       transition: transform var(--transition-fast), opacity var(--transition-fast);
-      border: 3px solid transparent;
-      background-image:
-        linear-gradient(var(--card-bg), var(--card-bg)),
-        linear-gradient(120deg, var(--accent), var(--accent-2), var(--accent-3));
-      background-origin: border-box;
-      background-clip: padding-box, border-box;
     }
 
     .card.swipe-left {
-      transform: translateX(-90px) rotate(-8deg);
+      transform: translateX(-120px) rotate(-10deg);
       opacity: 0;
     }
 
@@ -152,227 +164,285 @@
       opacity: 1;
     }
 
-    .card-header-row {
+    /* Card visual top section */
+    .card-banner {
+      height: 42%;
+      background: linear-gradient(135deg, #f97316, #ec4899, #6366f1);
+      position: relative;
+    }
+
+    .card-label {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #f9fafb;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .card-mode-pill {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      color: #111827;
+      font-size: 0.7rem;
+    }
+
+    .card-meta-bottom {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      right: 14px;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-    }
-
-    .card-category {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--accent-2);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .card-category span {
-      font-size: 0.9rem;
+      align-items: flex-end;
+      color: #f9fafb;
     }
 
     .card-count {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      font-size: 0.78rem;
+      opacity: 0.9;
+    }
+
+    .card-tagline {
+      font-size: 0.74rem;
+      text-align: right;
+      opacity: 0.9;
+    }
+
+    /* Card content area */
+    .card-content {
+      flex: 1;
+      padding: 18px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .card-title {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      margin-top: 4px;
     }
 
     .card-subtitle {
-      font-size: 0.96rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
 
     .card-body {
-      margin-top: 8px;
-      font-size: 0.98rem;
+      font-size: 0.9rem;
       line-height: 1.5;
+      margin-top: 4px;
     }
 
     .chip-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 10px;
+      margin-top: 6px;
     }
 
     .chip {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       padding: 4px 9px;
       border-radius: 999px;
       background: #eff6ff;
       color: #1d4ed8;
     }
 
-    .card-footer {
-      margin-top: 16px;
+    .card-footer-text {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-size: 0.84rem;
+      align-items: baseline;
+      font-size: 0.78rem;
       color: var(--text-muted);
     }
 
     .small-label {
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
       font-size: 0.7rem;
-      color: var(--accent-3);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-tag);
+      font-weight: 600;
     }
 
-    /* Controls */
-    .controls {
-      margin-top: 16px;
+    /* Bottom controls */
+    .bottom-controls {
+      height: 90px;
       display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    button {
+    .buttons-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+    }
+
+    .swipe-btn-wrapper {
+      width: 68px;
+      height: 68px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+      background: #f9fafb;
+    }
+
+    .swipe-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 999px;
       border: none;
       cursor: pointer;
-      font-size: 0.94rem;
-      padding: 10px 18px;
-      border-radius: 999px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 6px;
-      font-weight: 600;
-      transition: background var(--transition-fast), transform 0.1s ease-out,
-        box-shadow 0.1s ease-out;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out;
     }
 
-    button:active {
-      transform: translateY(1px);
+    .swipe-btn:active {
+      transform: scale(0.95);
       box-shadow: none;
     }
 
-    .btn-skip {
-      background: #fee2e2;
-      color: #b91c1c;
-      box-shadow: 0 10px 25px rgba(248, 113, 113, 0.35);
+    .btn-nope {
+      background: var(--accent-nope);
     }
 
-    .btn-skip:hover {
-      background: #fecaca;
+    .btn-info {
+      background: var(--accent-info);
     }
 
-    .btn-like {
-      background: #a5b4fc;
-      color: #111827;
-      box-shadow: 0 10px 25px rgba(129, 140, 248, 0.5);
+    .btn-nope::before {
+      content: "×";
     }
 
-    .btn-like:hover {
-      background: #818cf8;
+    .btn-info::before {
+      content: "i";
+      font-size: 1.6rem;
+      font-weight: 800;
     }
 
-    .hint {
-      margin-top: 6px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .swipe-hint {
+      font-size: 0.74rem;
+      color: #f3f4f6;
       text-align: center;
     }
 
-    footer {
-      margin-top: 16px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-align: right;
+    @media (max-height: 650px) {
+      .app-shell {
+        height: 620px;
+      }
+      .swipe-area {
+        margin-bottom: 4px;
+      }
+      .bottom-controls {
+        height: 80px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="brand">
-        <div class="name">
-          Julianna Elise
-          <span>✨</span>
-        </div>
-        <div class="tagline">
-          A swipe-style portfolio where you can explore my skills, tutoring & SI experience, projects, and the things I care about outside of class.
-        </div>
-        <div class="pill-row">
-          <span class="pill">Business Analytics</span>
-          <span class="pill">Tutoring & SI</span>
-          <span class="pill">Web & Data</span>
-          <span class="pill">Outdoors & Service</span>
+  <div class="app-shell">
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="top-left">
+        <div class="avatar">JE</div>
+        <div class="name-title">
+          <div class="name-main">Julianna Elise</div>
+          <div class="name-sub">Swipe through my skills & story</div>
         </div>
       </div>
-      <div>
-        <span class="badge-fun">💖 Swipe-friendly · Still professional</span>
+      <div class="top-right">
+        LIVE PORTFOLIO
       </div>
-    </header>
+    </div>
 
-    <main>
-      <div class="card-shell">
-        <article id="card" class="card">
-          <div class="card-header-row">
-            <div>
-              <div id="card-category" class="card-category">
-                <span>🃏</span> Category
-              </div>
-              <div id="card-title" class="card-title">Title</div>
+    <!-- Swipe area -->
+    <div class="swipe-area">
+      <!-- background “stacked” cards -->
+      <div class="card-stack"></div>
+      <div class="card-stack"></div>
+
+      <!-- main card -->
+      <article id="card" class="card">
+        <div class="card-banner">
+          <div id="card-category-label" class="card-label">CATEGORY</div>
+          <div id="card-mode" class="card-mode-pill">Summary</div>
+          <div class="card-meta-bottom">
+            <div id="card-count" class="card-count">1 / N</div>
+            <div class="card-tagline">Left = Next · Right = More Info</div>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <div class="card-text-block">
+            <div id="card-title" class="card-title">Title</div>
+            <div id="card-subtitle" class="card-subtitle">Subtitle</div>
+            <div id="card-body" class="card-body">
+              Body text goes here.
             </div>
-            <div class="card-count" id="card-count">1 / N</div>
-          </div>
-          <div id="card-subtitle" class="card-subtitle">Subtitle</div>
-
-          <div id="card-body" class="card-body">
-            Body text goes here.
+            <div id="chip-row" class="chip-row"></div>
           </div>
 
-          <div id="chip-row" class="chip-row"></div>
-
-          <div class="card-footer">
+          <div class="card-footer-text">
             <div>
               <div class="small-label">Card type</div>
               <span id="card-type">Skill</span>
             </div>
-            <div id="detail-state" class="card-detail-state">
-              Summary view
+            <div id="view-state" class="view-state">
+              Currently viewing: Summary
             </div>
           </div>
-        </article>
-      </div>
+        </div>
+      </article>
+    </div>
 
-      <div class="controls">
-        <button id="skip-btn" class="btn-skip" type="button">
-          ⬅️ Swipe Left · Next Card
-        </button>
-        <button id="like-btn" class="btn-like" type="button">
-          Swipe Right · More Detail ➡️
-        </button>
+    <!-- Bottom buttons -->
+    <div class="bottom-controls">
+      <div class="buttons-row">
+        <div class="swipe-btn-wrapper">
+          <button id="btn-nope" class="swipe-btn btn-nope" type="button"></button>
+        </div>
+        <div class="swipe-btn-wrapper">
+          <button id="btn-info" class="swipe-btn btn-info" type="button"></button>
+        </div>
       </div>
-      <div class="hint">
-        Tip: Use your keyboard too — ← for next card, → to see more detail.
+      <div class="swipe-hint">
+        Tap × or press ← to skip · Tap i or press → for more detail
       </div>
-    </main>
-
-    <footer>
-      Built on GitHub Pages · Designed as a colorful, interactive personal brand.
-    </footer>
+    </div>
   </div>
 
   <script>
-    // Cards data: summary vs details
+    // Card data: summary vs details
     const cards = [
       /* SKILLS */
       {
         category: "Skills",
-        emoji: "📊",
         title: "Data Analytics & Cleaning",
         subtitle: "Turning messy info into clean, decision-ready stories.",
         summary:
@@ -384,11 +454,10 @@
       },
       {
         category: "Skills",
-        emoji: "🧑‍🏫",
         title: "Teaching, Tutoring & SI Leadership",
         subtitle: "Helping students feel less stressed and more confident with numbers.",
         summary:
-          "From SI sessions to one-on-one tutoring, I design spaces where people can ask ‘embarrassing’ questions and actually feel okay about it.",
+          "From SI sessions to one-on-one tutoring, I design spaces where people can ask the questions they’re nervous to ask in class and actually feel okay about it.",
         details:
           "Roles include SI Leader for Math 119 and analytics, private tutor, Teach For America Ignite Fellow, and tutor at the Math Place. I mix quick concept refreshers, guided practice, and a lot of encouragement so students leave feeling more capable, not more overwhelmed.",
         chips: ["Facilitation", "Lesson design", "Peer support"],
@@ -396,7 +465,6 @@
       },
       {
         category: "Skills",
-        emoji: "💻",
         title: "Web & Portfolio Projects",
         subtitle: "Little experiments like this swipe interface.",
         summary:
@@ -410,7 +478,6 @@
       /* TUTORING & SI EXPERIENCE */
       {
         category: "Tutoring & SI",
-        emoji: "📚",
         title: "SI Leader · Math & Analytics",
         subtitle: "Guided group sessions, practice problems, and exam prep.",
         summary:
@@ -422,35 +489,32 @@
       },
       {
         category: "Tutoring & SI",
-        emoji: "🌎",
         title: "Teach For America · Ignite Fellow",
         subtitle: "Virtual small-group math tutor.",
         summary:
           "I support K–12 students in small groups, helping them build confidence with math concepts they’ve struggled with.",
         details:
-          "I partner with classroom teachers, design short interactive activities, and celebrate small wins. The work is a mix of relationship-building, patience, and figuring out which explanation will finally make something ‘click.’",
+          "I partner with classroom teachers, design short interactive activities, and celebrate small wins. The work is a mix of relationship-building, patience, and figuring out which explanation will finally make something click.",
         chips: ["Equity in education", "Relationship-building"],
         type: "Experience"
       },
       {
         category: "Tutoring & SI",
-        emoji: "✏️",
         title: "Private Tutor · A Tutor’s Touch",
         subtitle: "One-on-one support tailored to each student.",
         summary:
           "I work directly with students (and often their parents) to set goals, track progress, and rebuild confidence in math.",
         details:
-          "Sessions often include homework help, concept review, and test prep. I pay attention to where students shut down, and look for ways to make the material less intimidating and more doable.",
+          "Sessions often include homework help, concept review, and test prep. I pay attention to where students shut down, and look for ways to make the material feel more doable instead of overwhelming.",
         chips: ["Goal setting", "Progress tracking"],
         type: "Experience"
       },
       {
         category: "Tutoring & SI",
-        emoji: "🏫",
         title: "UTK Math Place",
         subtitle: "Drop-in tutoring for college algebra and beyond.",
         summary:
-          "At the Math Place, I help students who pop in with everything from quick homework questions to full-on crisis before an exam.",
+          "At the Math Place, I help students who pop in with everything from quick homework questions to full-on panic before an exam.",
         details:
           "I’ve learned how to quickly diagnose where someone is stuck, and how to guide them to do the heavy lifting instead of just watching me solve problems. It’s great practice in communication and patience.",
         chips: ["On-demand support", "Explaining concepts"],
@@ -460,7 +524,6 @@
       /* EXTRACURRICULARS & PROJECTS */
       {
         category: "Extracurriculars",
-        emoji: "🧼",
         title: "Vol Study Center · Data Cleaning",
         subtitle: "Helping make student support data usable.",
         summary:
@@ -472,7 +535,6 @@
       },
       {
         category: "Extracurriculars",
-        emoji: "🤝",
         title: "Haslam Business Fellows",
         subtitle: "Leadership, development, and career exploration.",
         summary:
@@ -486,7 +548,6 @@
       /* PASSIONS & PERSONAL */
       {
         category: "Passions",
-        emoji: "🏔️",
         title: "Snowboarding & the Outdoors",
         subtitle: "Most myself in the mountains or on a trail.",
         summary:
@@ -498,7 +559,6 @@
       },
       {
         category: "Passions",
-        emoji: "🍽️",
         title: "Everett’s 8800 & Seasonal Work",
         subtitle: "Hospitality, hustle, and long-shift energy.",
         summary:
@@ -510,55 +570,59 @@
       },
       {
         category: "Passions",
-        emoji: "🧒",
         title: "Boys & Girls Club",
         subtitle: "Helping create safe, fun spaces for kids.",
         summary:
           "Working with youth at the Boys & Girls Club has made me more patient, playful, and aware of how much environment matters for kids.",
         details:
-          "I care a lot about making sure students and kids feel seen, especially those who might not always feel like school or programs were ‘built for them.’",
+          "I care a lot about making sure students and kids feel seen, especially those who might not always feel like school or programs were built for them.",
         chips: ["Youth development", "Community"],
         type: "Personal"
       }
     ];
 
+    // State
     let currentIndex = 0;
     let showingDetails = false;
 
+    // Elements
     const cardEl = document.getElementById("card");
-    const categoryEl = document.getElementById("card-category");
+    const categoryLabelEl = document.getElementById("card-category-label");
+    const modeEl = document.getElementById("card-mode");
+    const countEl = document.getElementById("card-count");
     const titleEl = document.getElementById("card-title");
     const subtitleEl = document.getElementById("card-subtitle");
     const bodyEl = document.getElementById("card-body");
-    const chipRowEl = document.getElementById("chip-row");
+    const chipsEl = document.getElementById("chip-row");
     const typeEl = document.getElementById("card-type");
-    const countEl = document.getElementById("card-count");
-    const detailStateEl = document.getElementById("detail-state");
-    const skipBtn = document.getElementById("skip-btn");
-    const likeBtn = document.getElementById("like-btn");
+    const viewStateEl = document.getElementById("view-state");
+    const btnNope = document.getElementById("btn-nope");
+    const btnInfo = document.getElementById("btn-info");
 
     function renderCard() {
       const card = cards[currentIndex];
       showingDetails = false;
 
-      categoryEl.innerHTML = `<span>${card.emoji}</span> ${card.category}`;
+      categoryLabelEl.textContent = card.category;
+      modeEl.textContent = "Summary";
+      viewStateEl.textContent = "Currently viewing: Summary";
+
       titleEl.textContent = card.title;
       subtitleEl.textContent = card.subtitle;
       bodyEl.textContent = card.summary;
       typeEl.textContent = card.type;
       countEl.textContent = `${currentIndex + 1} / ${cards.length}`;
-      detailStateEl.textContent = "Summary view";
 
-      chipRowEl.innerHTML = "";
+      chipsEl.innerHTML = "";
       card.chips.forEach((chip) => {
         const span = document.createElement("span");
         span.className = "chip";
         span.textContent = chip;
-        chipRowEl.appendChild(span);
+        chipsEl.appendChild(span);
       });
     }
 
-    function nextCard() {
+    function goToNextCard() {
       cardEl.classList.remove("swipe-left", "swipe-reset");
       cardEl.classList.add("swipe-left");
 
@@ -570,36 +634,46 @@
       }, 220);
     }
 
-    skipBtn.addEventListener("click", () => {
-      nextCard();
+    // Left: skip card
+    btnNope.addEventListener("click", () => {
+      goToNextCard();
     });
 
-    likeBtn.addEventListener("click", () => {
+    // Right: toggle details for current card
+    btnInfo.addEventListener("click", () => {
       const card = cards[currentIndex];
       if (!showingDetails) {
         bodyEl.textContent = card.details;
-        detailStateEl.textContent = "Detail view (swipe left for next card)";
+        modeEl.textContent = "Details";
+        viewStateEl.textContent = "Currently viewing: Details (press × or swipe left for next card)";
         showingDetails = true;
       } else {
-        // if they click again, go back to summary
         bodyEl.textContent = card.summary;
-        detailStateEl.textContent = "Summary view";
+        modeEl.textContent = "Summary";
+        viewStateEl.textContent = "Currently viewing: Summary";
         showingDetails = false;
       }
     });
 
-    // keyboard shortcuts
+    // Keyboard controls
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") {
-        skipBtn.click();
+        btnNope.click();
       } else if (e.key === "ArrowRight") {
-        likeBtn.click();
+        btnInfo.click();
       }
     });
 
-    // initial render
+    // Initial render
     renderCard();
   </script>
 </body>
 </html>
-      
+
+     
+         
+   
+    
+
+    
+    
