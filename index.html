@@ -1,21 +1,620 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Julianna Elise | Portfolio</title>
+  <title>Julianna Elise | Swipe Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background: #fafafa;
+    /* ----- Base styles ----- */
+    :root {
+      --bg: #f4f7f5;
+      --card-bg: #ffffff;
+      --accent: #2b6777;     /* deep teal */
+      --accent-soft: #82a6a1;/* soft nature green/teal */
+      --text-main: #1f2933;
+      --text-muted: #6b7280;
+      --pill-bg: #e3efe9;
+      --shadow-soft: 0 18px 35px rgba(20, 40, 60, 0.12);
+      --radius-card: 18px;
+      --transition-fast: 0.22s ease-out;
     }
-    h1 {
-      color: #333;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e3f2ef 0, #f4f7f5 40%, #f4f7f5 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    @media (min-width: 720px) {
+      header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .tagline {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 450px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ----- Card area ----- */
+    .card-shell {
+      position: relative;
+      min-height: 320px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 22px 18px;
+      max-width: 720px;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transform-origin: center;
+      transition: transform var(--transition-fast), opacity var(--transition-fast);
+    }
+
+    .card.swipe-left {
+      transform: translateX(-70px) rotate(-5deg);
+      opacity: 0;
+    }
+
+    .card.swipe-right {
+      transform: translateX(70px) rotate(5deg);
+      opacity: 0;
+    }
+
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .card-category {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--accent-soft);
+    }
+
+    .card-count {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+    }
+
+    .card-body {
+      margin-top: 8px;
+      font-size: 0.96rem;
+      line-height: 1.45;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #edf2f7;
+      color: var(--text-muted);
+    }
+
+    .card-footer {
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .small-label {
+      font-weight: 600;
+      color: var(--accent-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+    }
+
+    /* ----- Controls ----- */
+    .controls {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 0.92rem;
+      padding: 9px 18px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: background var(--transition-fast), transform 0.1s ease-out,
+                  box-shadow 0.1s ease-out;
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .btn-skip {
+      background: #e5ece9;
+      color: var(--text-main);
+    }
+
+    .btn-skip:hover {
+      background: #d9e4df;
+    }
+
+    .btn-like {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(43, 103, 119, 0.35);
+    }
+
+    .btn-like:hover {
+      background: #265b69;
+    }
+
+    .btn-details {
+      background: transparent;
+      color: var(--accent-soft);
+      padding-inline: 10px;
+      box-shadow: none;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-size: 0.9rem;
+    }
+
+    /* ----- Saved list ----- */
+    .saved-shell {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #dde5e2;
+      font-size: 0.86rem;
+    }
+
+    .saved-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .saved-title-row h2 {
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .saved-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .saved-pill {
+      background: #eaf3f0;
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+
+    .empty-text {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ----- Footer ----- */
+    footer {
+      margin-top: 8px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-align: right;
     }
   </style>
 </head>
 <body>
-  <h1>Hi, I'm Julianna 👋</h1>
-  <p>Welcome to my personal website. More coming soon!</p>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="name">Julianna Elise</div>
+        <div class="tagline">
+          Interactive portfolio that lets you <strong>swipe through</strong> my skills, tutoring experience, projects, and passions.
+        </div>
+        <div class="pill-row">
+          <span class="pill">Business Analytics</span>
+          <span class="pill">Tutoring & SI Leader</span>
+          <span class="pill">Web & Data</span>
+          <span class="pill">Outdoors & Service</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="card-shell">
+        <article id="card" class="card">
+          <div class="card-header-row">
+            <div>
+              <div id="card-category" class="card-category">Category</div>
+              <div id="card-title" class="card-title">Title</div>
+            </div>
+            <div class="card-count" id="card-count">1 / N</div>
+          </div>
+          <div id="card-subtitle" class="card-subtitle">Subtitle</div>
+
+          <div id="card-body" class="card-body">
+            Body text goes here.
+          </div>
+
+          <div id="chip-row" class="chip-row"></div>
+
+          <div class="card-footer">
+            <div>
+              <div class="small-label">Card type</div>
+              <span id="card-type">Skill</span>
+            </div>
+            <button id="details-btn" class="btn-details" type="button">
+              View more details
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <div class="controls">
+        <button id="skip-btn" class="btn-skip" type="button">
+          ⬅️ Swipe Left (Skip)
+        </button>
+        <button id="like-btn" class="btn-like" type="button">
+          Swipe Right (Save) ➡️
+        </button>
+      </div>
+
+      <section class="saved-shell">
+        <div class="saved-title-row">
+          <h2>Saved cards (swiped right)</h2>
+          <span id="saved-count" class="small-label">0 saved</span>
+        </div>
+        <div id="saved-list" class="saved-list">
+          <span class="empty-text">Swipe right on cards you want to remember.</span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Built with GitHub Pages · Designed as an interactive “swipe” portfolio.
+    </footer>
+  </div>
+
+  <script>
+    // ----- Data for cards -----
+    const cards = [
+      /* SKILLS */
+      {
+        category: "Skills",
+        title: "Data Analytics & Cleaning",
+        subtitle: "Turning messy information into clean, decision-ready insights.",
+        body: "I work with datasets in R, Excel, and SQL to clean, reshape, and visualize information so people can actually use it. I like taking intimidating tables and turning them into clear stories.",
+        chips: ["R", "Excel", "SQL basics", "Data wrangling", "Visualization"],
+        type: "Skill",
+        details:
+          "Example work: cleaning student success data for the Vol Study Center, building churn and classification models in BAS courses, and exploring NFL and airline performance datasets for class projects."
+      },
+      {
+        category: "Skills",
+        title: "Teaching, Tutoring & SI Leadership",
+        subtitle: "Helping students feel less stressed and more confident with numbers.",
+        body: "I’ve led review sessions, created worksheets, and supported students one-on-one across math, economics, and analytics courses.",
+        chips: ["Facilitation", "Lesson design", "Office hours", "Peer support"],
+        type: "Skill",
+        details:
+          "Roles include SI Leader for Math 119 and analytics, private tutor, Teach For America Ignite Fellow, and tutor at the Math Place. I focus on building intuition first, then drilling practice."
+      },
+      {
+        category: "Skills",
+        title: "Web & Portfolio Projects",
+        subtitle: "Bringing ideas to life on the web (like this swipe interface).",
+        body: "I enjoy experimenting with simple front-end projects and interactive ways to share my work, like this GitHub Pages site.",
+        chips: ["HTML", "CSS", "JavaScript basics", "GitHub Pages"],
+        type: "Skill",
+        details:
+          "This site is fully hosted on GitHub Pages and written in HTML, CSS, and JavaScript. I use it to experiment with layouts, personal branding, and interactive storytelling."
+      },
+
+      /* TUTORING & SI EXPERIENCE */
+      {
+        category: "Tutoring & SI",
+        title: "SI Leader · Math & Analytics",
+        subtitle: "Guided group study sessions and exam reviews.",
+        body: "As an SI Leader, I plan and run collaborative sessions where we break down tricky concepts, work problems together, and build strategies for exams.",
+        chips: ["Session planning", "Group facilitation", "Canvas & Zoom"],
+        type: "Experience",
+        details:
+          "I focus on metacognitive prompts (how to think about a problem), modeling example solutions, and making space for students to explain their thinking out loud."
+      },
+      {
+        category: "Tutoring & SI",
+        title: "Teach For America · Ignite Fellow",
+        subtitle: "Virtual small-group tutor supporting K–12 math learning.",
+        body: "As an Ignite Fellow, I work with students in small groups to reinforce key math concepts and build academic confidence.",
+        chips: ["Equity in education", "Relationship-building", "Lesson scaffolding"],
+        type: "Experience",
+        details:
+          "My role emphasizes culturally responsive teaching, celebrating student growth, and collaborating with classroom teachers on what each student needs next."
+      },
+      {
+        category: "Tutoring & SI",
+        title: "Private Tutor · A Tutor’s Touch",
+        subtitle: "One-on-one support tailored to each student.",
+        body: "I design sessions around each student’s goals, whether that’s surviving a class, getting ahead, or rebuilding confidence with math.",
+        chips: ["Goal setting", "Progress tracking", "Parent communication"],
+        type: "Experience",
+        details:
+          "I’ve worked with students across middle school, high school, and early college, especially in algebra and intro statistics."
+      },
+      {
+        category: "Tutoring & SI",
+        title: "UTK Math Place",
+        subtitle: "Drop-in tutoring for college algebra and beyond.",
+        body: "At the Math Place, I help students who drop in with questions ranging from homework problems to concept review.",
+        chips: ["On-demand support", "Explaining concepts multiple ways"],
+        type: "Experience",
+        details:
+          "I’ve learned to quickly diagnose where someone is stuck, ask the right questions, and guide them to do the heavy lifting instead of just giving answers."
+      },
+
+      /* EXTRACURRICULARS & PROJECTS */
+      {
+        category: "Extracurriculars",
+        title: "Vol Study Center · Data Cleaning",
+        subtitle: "Helping clean and structure student support data.",
+        body: "Supported data cleaning work for the Vol Study Center so usage and outcomes could be analyzed more effectively.",
+        chips: ["Data quality", "Spreadsheet cleanup", "Student success"],
+        type: "Project",
+        details:
+          "Tasks included standardizing category labels, handling missing data, and making sure the dataset was ready for analysis on how support services impact students."
+      },
+      {
+        category: "Extracurriculars",
+        title: "Haslam Business Fellows",
+        subtitle: "Leadership, professional development, and team projects.",
+        body: "Selected into a cohort focused on leadership development, networking, and real-world business exposure.",
+        chips: ["Leadership", "Networking", "Professional growth"],
+        type: "Program",
+        details:
+          "Through Business Fellows, I’ve learned to communicate my story, work across disciplines, and think about long-term career paths in business and analytics."
+      },
+
+      /* PASSIONS & PERSONAL */
+      {
+        category: "Passions",
+        title: "Snowboarding & the Outdoors",
+        subtitle: "Most alive on a mountain or a trail.",
+        body: "I love spending time outside, especially snowboarding and exploring mountain towns. It keeps me grounded and reminds me why I care about conservation and land management.",
+        chips: ["Snowboarding", "Mountains", "Nature"],
+        type: "Personal",
+        details:
+          "Outdoor time is where I reset, think big picture, and connect my academic work to real places and ecosystems."
+      },
+      {
+        category: "Passions",
+        title: "Everett’s 8800 & Seasonal Work",
+        subtitle: "Learning hustle, hospitality, and teamwork.",
+        body: "Working at places like Everett’s 8800 has taught me how to handle fast-paced environments, long shifts, and constant guest interaction.",
+        chips: ["Customer experience", "Teamwork", "Work ethic"],
+        type: "Personal",
+        details:
+          "Those roles gave me real-world perspective on service, tourism, and what it takes to deliver consistent experiences to people on vacation."
+      },
+      {
+        category: "Passions",
+        title: "Boys & Girls Club & Youth Work",
+        subtitle: "Creating safe spaces for kids to grow.",
+        body: "Working with kids and teens has made me more patient, creative, and aware of how much environment shapes opportunity.",
+        chips: ["Youth development", "Mentoring", "Community"],
+        type: "Personal",
+        details:
+          "I care about making sure students see more for themselves than just ‘getting by’ in school — especially those who don’t always feel seen."
+      }
+    ];
+
+    let currentIndex = 0;
+    let showingDetails = false;
+    const liked = [];
+
+    const cardEl = document.getElementById("card");
+    const categoryEl = document.getElementById("card-category");
+    const titleEl = document.getElementById("card-title");
+    const subtitleEl = document.getElementById("card-subtitle");
+    const bodyEl = document.getElementById("card-body");
+    const chipRowEl = document.getElementById("chip-row");
+    const typeEl = document.getElementById("card-type");
+    const countEl = document.getElementById("card-count");
+    const detailsBtn = document.getElementById("details-btn");
+    const skipBtn = document.getElementById("skip-btn");
+    const likeBtn = document.getElementById("like-btn");
+    const savedListEl = document.getElementById("saved-list");
+    const savedCountEl = document.getElementById("saved-count");
+
+    function renderCard() {
+      const card = cards[currentIndex];
+      showingDetails = false;
+      categoryEl.textContent = card.category;
+      titleEl.textContent = card.title;
+      subtitleEl.textContent = card.subtitle;
+      bodyEl.textContent = card.body;
+      typeEl.textContent = card.type;
+      countEl.textContent = `${currentIndex + 1} / ${cards.length}`;
+      detailsBtn.textContent = "View more details";
+
+      chipRowEl.innerHTML = "";
+      card.chips.forEach((chip) => {
+        const span = document.createElement("span");
+        span.className = "chip";
+        span.textContent = chip;
+        chipRowEl.appendChild(span);
+      });
+    }
+
+    function updateSavedList() {
+      savedListEl.innerHTML = "";
+      if (liked.length === 0) {
+        const span = document.createElement("span");
+        span.className = "empty-text";
+        span.textContent = "Swipe right on cards you want to remember.";
+        savedListEl.appendChild(span);
+      } else {
+        liked.forEach((card) => {
+          const pill = document.createElement("span");
+          pill.className = "saved-pill";
+          pill.textContent = `${card.category}: ${card.title}`;
+          savedListEl.appendChild(pill);
+        });
+      }
+      savedCountEl.textContent = `${liked.length} saved`;
+    }
+
+    function goToNext(direction) {
+      // trigger tiny swipe animation
+      cardEl.classList.remove("swipe-left", "swipe-right");
+      if (direction === "left") {
+        cardEl.classList.add("swipe-left");
+      } else {
+        cardEl.classList.add("swipe-right");
+      }
+
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % cards.length;
+        cardEl.classList.remove("swipe-left", "swipe-right");
+        renderCard();
+      }, 220);
+    }
+
+    detailsBtn.addEventListener("click", () => {
+      const card = cards[currentIndex];
+      if (!showingDetails) {
+        bodyEl.textContent = card.details;
+        detailsBtn.textContent = "Back to summary";
+        showingDetails = true;
+      } else {
+        bodyEl.textContent = card.body;
+        detailsBtn.textContent = "View more details";
+        showingDetails = false;
+      }
+    });
+
+    skipBtn.addEventListener("click", () => {
+      goToNext("left");
+    });
+
+    likeBtn.addEventListener("click", () => {
+      const card = cards[currentIndex];
+      // avoid duplicates
+      if (!liked.includes(card)) {
+        liked.push(card);
+        updateSavedList();
+      }
+      goToNext("right");
+    });
+
+    // keyboard support: left / right arrows
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        skipBtn.click();
+      } else if (e.key === "ArrowRight") {
+        likeBtn.click();
+      }
+    });
+
+    // initial render
+    renderCard();
+    updateSavedList();
+  </script>
 </body>
 </html>
+
