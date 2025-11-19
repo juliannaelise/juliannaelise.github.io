@@ -1,20 +1,24 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Julianna Elise Hanson | Analytics & Strategy</title>
+  <title>Julianna Elise Hanson</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #f7f7fb;
-      --card: #ffffff;
-      --accent: #c62828;
-      --accent-soft: #ffe5e5;
-      --text-main: #222222;
-      --text-muted: #666666;
-      --border: #e0e0ea;
-      --shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-      --radius-lg: 22px;
+      --bg: #f5f9ff;
+      --bg-soft: #e4efff;
+      --card-bg: #ffffff;
+      --accent: #0b4f9c;
+      --accent-soft: #d6e6ff;
+      --accent-strong: #063569;
+      --text-main: #102542;
+      --text-muted: #5c6c85;
+      --border-soft: #d3ddf2;
+      --shadow-soft: 0 18px 40px rgba(8, 40, 85, 0.12);
+      --radius-lg: 24px;
+      --radius-pill: 999px;
     }
 
     * {
@@ -26,122 +30,113 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: radial-gradient(circle at top left, #fbe9e7, #f7f7fb 45%);
+      background: radial-gradient(circle at top, #e2edff 0, var(--bg) 55%);
       color: var(--text-main);
       line-height: 1.6;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
+      padding: 32px 16px 64px;
     }
 
     .page {
-      max-width: 1100px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 32px 20px 60px;
+      background: linear-gradient(145deg, #f8fbff, #eef3ff);
+      border-radius: 32px;
+      padding: 40px 32px 48px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.8);
     }
 
     header {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
       gap: 32px;
       align-items: center;
       margin-bottom: 40px;
     }
 
-    @media (max-width: 800px) {
-      header {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
+    .eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
     }
 
-    .hero-text h1 {
-      font-size: 2.25rem;
+    h1 {
+      font-size: clamp(2.4rem, 3vw, 2.9rem);
       letter-spacing: 0.03em;
       margin-bottom: 8px;
     }
 
-    .hero-subtitle {
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 18px;
-    }
-
-    .hero-tagline {
-      font-size: 1.05rem;
+    .subtitle {
+      font-size: 1.06rem;
       color: var(--text-muted);
+      max-width: 34rem;
       margin-bottom: 20px;
-      max-width: 32rem;
     }
 
-    .hero-meta {
+    .chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
-      font-size: 0.92rem;
-      color: var(--text-muted);
+      gap: 8px;
+      margin-bottom: 24px;
     }
 
-    .pill {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.7);
+    .chip {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border-soft);
+      font-size: 0.82rem;
+      color: var(--text-muted);
       backdrop-filter: blur(8px);
     }
 
-    .hero-actions {
-      margin-top: 22px;
+    .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
     }
 
     .btn {
+      border-radius: var(--radius-pill);
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.08s ease, box-shadow 0.08s ease,
-        background-color 0.08s ease, border-color 0.08s ease;
+      gap: 8px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+        background 0.12s ease, color 0.12s ease;
+      white-space: nowrap;
     }
 
     .btn-primary {
       background: var(--accent);
-      color: #ffffff;
-      box-shadow: var(--shadow);
+      color: white;
+      box-shadow: 0 10px 25px rgba(6, 53, 105, 0.3);
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 22px 50px rgba(198, 40, 40, 0.25);
+      background: var(--accent-strong);
+      box-shadow: 0 14px 30px rgba(6, 53, 105, 0.35);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: var(--border);
-      color: var(--text-main);
+    .btn-outline {
+      background: white;
+      color: var(--accent);
+      border: 1px solid var(--border-soft);
     }
 
-    .btn-secondary:hover {
-      background: #ffffff;
+    .btn-outline:hover {
       transform: translateY(-1px);
-      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+      background: var(--bg-soft);
+      border-color: var(--accent-soft);
     }
 
     .hero-photo-wrap {
@@ -149,438 +144,457 @@
       justify-content: center;
     }
 
-    .hero-photo-inner {
-      background: linear-gradient(145deg, #ffffff, #ffe5e5);
+    .hero-photo-glow {
       padding: 6px;
-      border-radius: 26px;
-      box-shadow: var(--shadow);
+      background: radial-gradient(circle at top, #ffffff, var(--bg-soft));
+      border-radius: 999px;
+      box-shadow: 0 20px 45px rgba(13, 51, 112, 0.42);
     }
 
-    .hero-photo-inner img {
-      display: block;
-      width: 260px;
-      height: auto;
-      border-radius: 20px;
+    .hero-photo {
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
       object-fit: cover;
+      border: 3px solid #ffffff;
+      display: block;
     }
 
     main {
       display: grid;
       grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.5fr);
-      gap: 32px;
-    }
-
-    @media (max-width: 980px) {
-      main {
-        grid-template-columns: 1fr;
-      }
+      gap: 28px;
     }
 
     section {
-      margin-bottom: 26px;
+      margin-bottom: 28px;
     }
 
-    h2 {
-      font-size: 1.15rem;
-      letter-spacing: 0.12em;
+    .section-title {
+      font-size: 1.05rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--accent);
       margin-bottom: 10px;
     }
 
-    .card {
-      background: var(--card);
+    .section-heading {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .card-shell {
+      background: var(--card-bg);
       border-radius: var(--radius-lg);
-      padding: 18px 20px 18px;
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 10px 25px rgba(6, 53, 105, 0.06);
     }
 
-    .card + .card {
-      margin-top: 15px;
-    }
-
-    .card-header {
+    .pill-row {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: var(--accent-strong);
     }
 
     .card-title {
       font-weight: 600;
+      margin-bottom: 4px;
     }
 
     .card-meta {
       font-size: 0.85rem;
       color: var(--text-muted);
+      margin-bottom: 8px;
     }
 
-    .card-badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 8px 0 6px;
-      font-size: 0.78rem;
-    }
-
-    .badge {
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: #8b1b1b;
-      border: 1px solid rgba(198, 40, 40, 0.2);
-      white-space: nowrap;
-    }
-
-    .card p {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    ul {
-      list-style: none;
-      margin-top: 6px;
+    .card-body {
       font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    ul li {
-      margin-bottom: 4px;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    ul li::before {
-      content: "•";
-      position: absolute;
-      left: 4px;
-      color: var(--accent);
-      font-weight: 700;
+      color: var(--text-main);
     }
 
     .skills-grid {
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skill-group-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 0.92rem;
+    }
+
+    .tags {
+      display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
     }
 
-    .skill-pill {
+    .tag {
       font-size: 0.8rem;
-      padding: 5px 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-soft);
+      color: var(--accent-strong);
+    }
+
+    /* Carousel */
+
+    .carousel-shell {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .carousel-card-wrap {
+      flex: 1;
+      position: relative;
+      min-height: 170px;
+    }
+
+    .carousel-card-wrap article {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease;
+    }
+
+    .carousel-card-wrap article.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .carousel-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .carousel-btn {
+      width: 32px;
+      height: 32px;
       border-radius: 999px;
-      background: #f3f4ff;
-      border: 1px solid #e0e0ea;
-      color: #374151;
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--accent-strong);
+      transition: background 0.1s ease, transform 0.1s ease;
     }
 
-    .contact-list {
-      font-size: 0.9rem;
+    .carousel-btn:hover {
+      background: var(--bg-soft);
+      transform: translateY(-1px);
+    }
+
+    .carousel-counter {
+      font-size: 0.75rem;
       color: var(--text-muted);
-    }
-
-    .contact-list a {
-      font-weight: 500;
+      text-align: center;
+      margin-top: 2px;
     }
 
     footer {
-      margin-top: 42px;
-      font-size: 0.82rem;
+      margin-top: 22px;
+      font-size: 0.8rem;
       color: var(--text-muted);
       text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        padding: 28px 18px 36px;
+        border-radius: 24px;
+      }
+
+      header {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+
+      .hero-photo-wrap {
+        justify-content: flex-start;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .carousel-shell {
+        flex-direction: row-reverse;
+      }
+
+      .carousel-nav {
+        flex-direction: row;
+        margin-top: 8px;
+      }
+
+      .carousel-counter {
+        text-align: left;
+        margin-left: 8px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="page">
     <header>
-      <div class="hero-text">
-        <div class="hero-subtitle">Analytics · Strategy · Storytelling</div>
+      <div>
+        <div class="eyebrow">Analytics · Strategy · Storytelling</div>
         <h1>Julianna Elise Hanson</h1>
-        <p class="hero-tagline">
-          Business Analytics &amp; Marketing student using data to improve decisions,
-          experiences, and outcomes — from NFL performance to student success.
+        <p class="subtitle">
+          Business Analytics and Marketing student who enjoys using data to improve decisions,
+          experiences, and outcomes from NFL performance to student success.
         </p>
-        <div class="hero-meta">
-          <span class="pill">Haslam College of Business · UT Knoxville</span>
-          <span class="pill">Business Analytics &amp; Marketing</span>
-          <span class="pill">GPA 4.00</span>
+
+        <div class="chips">
+          <span class="chip">Haslam College of Business · UT Knoxville</span>
+          <span class="chip">Business Analytics and Marketing</span>
+          <span class="chip">GPA 4.00</span>
         </div>
-        <div class="hero-actions">
-          <a href="Hanson_Resume.pdf" class="btn btn-primary" target="_blank">
-            View Résumé
+
+        <div class="actions">
+          <a class="btn btn-primary" href="Hanson_Resume.pdf" target="_blank" rel="noopener">
+            View Resume
           </a>
-          <a href="NFL_Analysis_Report.pdf" class="btn btn-secondary" target="_blank">
+          <a class="btn btn-outline" href="NFL_Analysis_Report.pdf" target="_blank" rel="noopener">
             NFL Analytics Report
           </a>
         </div>
       </div>
 
       <div class="hero-photo-wrap">
-        <div class="hero-photo-inner">
-          <!-- Replace 'headshot.jpg' with your actual image file name if different -->
-          <img src="headshot.jpg" alt="Headshot of Julianna Elise Hanson" />
+        <div class="hero-photo-glow">
+          <img src="ppf2.JPG" alt="Headshot of Julianna Elise Hanson" class="hero-photo" />
         </div>
       </div>
     </header>
 
     <main>
-      <!-- Left column: projects & experience -->
-      <div>
-        <section>
-          <h2>Selected Analytics Projects</h2>
+      <!-- Projects carousel -->
+      <section>
+        <div class="section-title">Selected analytics projects</div>
+        <h2 class="section-heading">Projects</h2>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">NFL Passing Analytics</div>
-              <div class="card-meta">R · nflfastR · 2019–2023 Seasons</div>
-            </div>
-            <div class="card-badge-row">
-              <span class="badge">Sports Analytics</span>
-              <span class="badge">Regression &amp; Correlation</span>
-            </div>
-            <p>
-              Built an end-to-end study of quarterback performance using five years of
-              play-by-play data, focusing on passing efficiency and decision-making. The
-              project used feature engineering, exploratory visualization, and correlation
-              analysis to surface patterns that could support talent evaluation and strategy.
-            </p>
-            <ul>
-              <li>
-                Filtered and aggregated nflfastR data to isolate full-season QB stats and key
-                KPIs such as attempts, completions, air yards, and yards after catch.
-              </li>
-              <li>
-                Quantified relationships like attempts vs. completions (with an almost
-                perfect Pearson correlation) and air yards vs. YAC using Spearman
-                correlation to handle outliers.
-              </li>
-              <li>
-                Translated technical results into plain-language insights for decision-makers,
-                highlighting how passing volume and route depth affect offensive efficiency.
-              </li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Airline Operations KPI Dashboard</div>
-              <div class="card-meta">Power BI · SQL · Excel</div>
-            </div>
-            <div class="card-badge-row">
-              <span class="badge">Operations Analytics</span>
-              <span class="badge">Simulation</span>
-            </div>
-            <p>
-              Designed an interactive dashboard to track delay and cancellation performance
-              by route, carrier, and season. Combined SQL, Excel, and Power BI to help
-              stakeholders see where delays originate and how schedule changes affect the
-              system.
-            </p>
-            <ul>
-              <li>
-                Wrote SQL queries to compute on-time rates, completion factors, and
-                controllable delay minutes by route and airline.
-              </li>
-              <li>
-                Built a scheduling scenario that suggested roughly a double-digit percentage
-                reduction in controllable delay minutes, illustrating the impact of better
-                sequencing and buffers.
-              </li>
-              <li>
-                Presented metrics in a clean visual layout with drill-downs to support
-                “what-if” conversations around network changes.
-              </li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Student Success Dashboards</div>
-              <div class="card-meta">Excel · R · Tableau</div>
-            </div>
-            <div class="card-badge-row">
-              <span class="badge">People Analytics</span>
-              <span class="badge">KPI Reporting</span>
-            </div>
-            <p>
-              At UTK, I build and maintain dashboards that track participation and outcomes
-              for tutoring and Supplemental Instruction programs, helping the team respond
-              quickly to where students need the most support.
-            </p>
-            <ul>
-              <li>
-                Cleaned and standardized data from multiple systems; automated refreshes so
-                KPIs stay current without manual updates.
-              </li>
-              <li>
-                Used regression and clustering to segment students by engagement patterns,
-                informing outreach and session design.
-              </li>
-              <li>
-                Communicated trends in a way that instructors, directors, and fellow
-                students can act on without needing to be “data people.”
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section>
-          <h2>Experience</h2>
-
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">
-                Supplemental Instruction Leader &amp; Tutor
+        <div class="card-shell carousel-shell" data-carousel="projects">
+          <div class="carousel-card-wrap">
+            <article class="active">
+              <div class="pill-row">
+                <span class="pill">Sports Analytics</span>
+                <span class="pill">Regression</span>
+                <span class="pill">R · nflfastR</span>
               </div>
-              <div class="card-meta">UT Knoxville · 2024 – Present</div>
-            </div>
-            <p>
-              Lead collaborative math sessions and one-on-one tutoring for students in
-              Finite Math, Calculus, and Mathematical Reasoning. I focus on frameworks,
-              not just answers—teaching students how to structure problems and build
-              confidence.
-            </p>
-            <ul>
-              <li>
-                Facilitate 5+ weekly sessions and design worksheets, practice exams, and
-                review activities.
-              </li>
-              <li>
-                Track attendance and assessment results in Excel dashboards to see which
-                strategies are working best.
-              </li>
-            </ul>
+              <div class="card-title">NFL Passing Analytics</div>
+              <div class="card-meta">Seasons 2019 through 2023</div>
+              <div class="card-body">
+                Built a study of quarterback performance using five years of play by play data,
+                focusing on passing efficiency and decision making. Cleaned and reshaped large data
+                sets in R, engineered features, and compared passing metrics by down, distance, and
+                game state. Delivered findings in a written report that connected statistical
+                results to game strategy.
+              </div>
+            </article>
+
+            <article>
+              <div class="pill-row">
+                <span class="pill">Education Analytics</span>
+                <span class="pill">Dashboards</span>
+                <span class="pill">Excel</span>
+              </div>
+              <div class="card-title">Student Success Dashboards</div>
+              <div class="card-meta">Supplemental Instruction leader · UT Knoxville</div>
+              <div class="card-body">
+                Designed Excel dashboards that track attendance, grades, and quiz performance for
+                large lecture courses. Standardized data from learning systems, created automated
+                refresh routines, and highlighted at risk students using conditional logic so
+                instructors could direct support where it was most needed.
+              </div>
+            </article>
+
+            <article>
+              <div class="pill-row">
+                <span class="pill">Operations</span>
+                <span class="pill">Visualization</span>
+                <span class="pill">Power BI</span>
+              </div>
+              <div class="card-title">Airline On Time Performance</div>
+              <div class="card-meta">Course project · Operations and Analytics</div>
+              <div class="card-body">
+                Modeled flight performance using Excel and Power BI with metrics for on time rates,
+                completion factors, and controllable delay minutes. Tested schedule changes that
+                suggested around a twelve percent reduction in controllable delays and presented
+                results through visuals and a written summary for a nontechnical audience.
+              </div>
+            </article>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">UTK Data Dashboard Assistant</div>
-              <div class="card-meta">2024 – Present</div>
-            </div>
-            <p>
-              Support the Vol Study Center by improving data pipelines and reporting
-              around academic support programs.
-            </p>
-            <ul>
-              <li>
-                Improved reporting accuracy by cleaning and standardizing core datasets
-                before they reach decision-makers.
-              </li>
-              <li>
-                Helped automate Excel-based dashboards and experimented with predictive
-                models in R to identify at-risk students earlier.
-              </li>
-            </ul>
+          <div class="carousel-nav">
+            <button class="carousel-btn prev" aria-label="Previous project">‹</button>
+            <button class="carousel-btn next" aria-label="Next project">›</button>
+            <div class="carousel-counter" data-counter></div>
           </div>
+        </div>
+      </section>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">CityLine Air Conditioning – Dispatcher</div>
-              <div class="card-meta">Dallas, TX · 2021 – 2024</div>
-            </div>
-            <p>
-              Coordinated daily service routes, documentation, and customer updates for a
-              busy HVAC company — early experience where I learned to be calm, structured,
-              and customer-focused on hectic days.
-            </p>
-          </div>
-        </section>
-      </div>
+      <!-- Skills and experience column -->
+      <section>
+        <div class="section-title">Skills and experience</div>
+        <h2 class="section-heading">Skills</h2>
 
-      <!-- Right column: skills & contact -->
-      <aside>
-        <section>
-          <h2>Skills</h2>
-          <div class="card">
-            <div class="card-title">Data &amp; Tools</div>
-            <div class="skills-grid">
-              <span class="skill-pill">R (tidyverse, ggplot2)</span>
-              <span class="skill-pill">SQL</span>
-              <span class="skill-pill">Excel (Power Query, PivotTables)</span>
-              <span class="skill-pill">Tableau</span>
-              <span class="skill-pill">Power BI</span>
-              <span class="skill-pill">Alteryx</span>
-              <span class="skill-pill">GitHub</span>
-              <span class="skill-pill">QuickBooks</span>
+        <div class="card-shell" style="margin-bottom:18px;">
+          <div class="skills-grid">
+            <div>
+              <div class="skill-group-title">Data and tools</div>
+              <div class="tags">
+                <span class="tag">R (tidyverse)</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Excel</span>
+                <span class="tag">Power BI</span>
+              </div>
             </div>
 
-            <div class="card-title" style="margin-top:12px;">Analytics</div>
-            <div class="skills-grid">
-              <span class="skill-pill">Regression</span>
-              <span class="skill-pill">Classification</span>
-              <span class="skill-pill">Clustering</span>
-              <span class="skill-pill">Feature Engineering</span>
-              <span class="skill-pill">Predictive Modeling</span>
-              <span class="skill-pill">KPI Design</span>
+            <div>
+              <div class="skill-group-title">Analytics</div>
+              <div class="tags">
+                <span class="tag">Regression</span>
+                <span class="tag">Data cleaning</span>
+                <span class="tag">Feature design</span>
+                <span class="tag">Visualization</span>
+              </div>
             </div>
 
-            <div class="card-title" style="margin-top:12px;">Coursework &amp; Focus</div>
-            <div class="skills-grid">
-              <span class="skill-pill">Business Analytics</span>
-              <span class="skill-pill">Marketing</span>
-              <span class="skill-pill">Information Management</span>
-              <span class="skill-pill">Public Policy Analytics</span>
+            <div>
+              <div class="skill-group-title">People and communication</div>
+              <div class="tags">
+                <span class="tag">Facilitation</span>
+                <span class="tag">Teaching and mentoring</span>
+                <span class="tag">Story telling with data</span>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
 
-        <section>
-          <h2>Leadership &amp; Service</h2>
-          <div class="card">
-            <p style="font-size:0.92rem; color:var(--text-muted);">
-              I care a lot about making analytics useful to real people — especially students.
-              I’m involved with:
-            </p>
-            <ul>
-              <li>Business Fellows Honors Program at UTK.</li>
-              <li>
-                Teach For America’s virtual tutoring programs for under-resourced students.
-              </li>
-              <li>
-                Student engagement work through the Vol Study Center and Supplemental
-                Instruction.
-              </li>
-            </ul>
-          </div>
-        </section>
+        <h2 class="section-heading" style="margin-top:6px;">Experience</h2>
+        <div class="card-shell carousel-shell" data-carousel="experience">
+          <div class="carousel-card-wrap">
+            <article class="active">
+              <div class="pill-row">
+                <span class="pill">Teaching and leadership</span>
+                <span class="pill">Student success</span>
+              </div>
+              <div class="card-title">Supplemental Instruction Leader</div>
+              <div class="card-meta">University of Tennessee · Mathematics and Economics courses</div>
+              <div class="card-body">
+                Lead weekly group study sessions for large classes, design guided practice problems,
+                and use analytics dashboards to monitor attendance and outcomes. Work with faculty to
+                identify patterns in grades and attendance and adjust session plans so support is
+                targeted and effective.
+              </div>
+            </article>
 
-        <section>
-          <h2>Contact</h2>
-          <div class="card">
-            <div class="contact-list">
-              <p><strong>Email:</strong> <a href="mailto:juliannaelisehanson@gmail.com">juliannaelisehanson@gmail.com</a></p>
-              <p><strong>Alt Email:</strong> <a href="mailto:csy159@vols.utk.edu">csy159@vols.utk.edu</a></p>
-              <p><strong>Phone:</strong> (214) 223-9111</p>
-              <p>
-                <strong>LinkedIn:</strong>
-                <a href="https://www.linkedin.com/in/juliannahanson" target="_blank">
-                  linkedin.com/in/juliannahanson
-                </a>
-              </p>
-            </div>
+            <article>
+              <div class="pill-row">
+                <span class="pill">Education</span>
+                <span class="pill">Coaching</span>
+              </div>
+              <div class="card-title">Academic Tutor</div>
+              <div class="card-meta">High school and college students</div>
+              <div class="card-body">
+                Provide one to one tutoring in statistics, economics, and algebra. Break complex
+                topics into clear steps, build custom practice sets, and use progress tracking to keep
+                students on pace for exams and course goals.
+              </div>
+            </article>
+
+            <article>
+              <div class="pill-row">
+                <span class="pill">Entrepreneurship</span>
+                <span class="pill">Client service</span>
+              </div>
+              <div class="card-title">Student Consultant and Founder</div>
+              <div class="card-meta">Early stage projects</div>
+              <div class="card-body">
+                Work on small analytics and strategy projects including sports data work and
+                prototype web content for local clients. Coordinate requirements, document insights,
+                and deliver simple visuals and summaries that tie data back to decisions.
+              </div>
+            </article>
           </div>
-        </section>
-      </aside>
+
+          <div class="carousel-nav">
+            <button class="carousel-btn prev" aria-label="Previous experience">‹</button>
+            <button class="carousel-btn next" aria-label="Next experience">›</button>
+            <div class="carousel-counter" data-counter></div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
-      © <span id="year"></span> Julianna Elise Hanson · Built with HTML &amp; CSS · Hosted on GitHub Pages
+      Built with HTML, CSS, and a little JavaScript. Hosted on GitHub Pages.
     </footer>
   </div>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    function setupCarousel(section) {
+      const container = document.querySelector(section);
+      if (!container) return;
+
+      const wrap = container.querySelector(".carousel-card-wrap");
+      const cards = wrap.querySelectorAll("article");
+      const prev = container.querySelector(".prev");
+      const next = container.querySelector(".next");
+      const counter = container.querySelector("[data-counter]");
+      let index = 0;
+
+      function update() {
+        cards.forEach((card, i) => {
+          card.classList.toggle("active", i === index);
+        });
+        if (counter) {
+          counter.textContent = (index + 1) + " / " + cards.length;
+        }
+      }
+
+      prev.addEventListener("click", () => {
+        index = (index - 1 + cards.length) % cards.length;
+        update();
+      });
+
+      next.addEventListener("click", () => {
+        index = (index + 1) % cards.length;
+        update();
+      });
+
+      update();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const carousels = document.querySelectorAll("[data-carousel]");
+      carousels.forEach(c => {
+        const selector = "[data-carousel='" + c.getAttribute("data-carousel") + "']";
+        setupCarousel(selector);
+      });
+    });
   </script>
 </body>
 </html>
-
- 
-   
-    
 
     
     
