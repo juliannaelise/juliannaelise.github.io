@@ -2,676 +2,583 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Julianna Elise | Swipe Portfolio</title>
+  <title>Julianna Elise Hanson | Analytics & Strategy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg-top: #ffecd2;
-      --bg-bottom: #fcb69f;
-      --card-bg: #ffffff;
-      --card-border: #e5e7eb;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --accent-info: #22c55e;
-      --accent-nope: #ef4444;
-      --accent-tag: #6366f1;
-      --radius-card: 24px;
-      --shadow-card: 0 22px 45px rgba(15, 23, 42, 0.3);
-      --transition-fast: 0.22s ease-out;
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --accent: #c62828;
+      --accent-soft: #ffe5e5;
+      --text-main: #222222;
+      --text-muted: #666666;
+      --border: #e0e0ea;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      --radius-lg: 22px;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height: 100vh;
-      background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
-      display: flex;
-      justify-content: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top left, #fbe9e7, #f7f7fb 45%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.1fr);
+      gap: 32px;
       align-items: center;
-      padding: 20px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 800px) {
+      header {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    .hero-text h1 {
+      font-size: 2.25rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      max-width: 32rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-actions {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background-color 0.08s ease, border-color 0.08s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 50px rgba(198, 40, 40, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: var(--border);
       color: var(--text-main);
     }
 
-    .app-shell {
-      width: 100%;
-      max-width: 420px;
-      height: 700px;
-      max-height: 100vh;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 24px 55px rgba(15, 23, 42, 0.4);
-      display: flex;
-      flex-direction: column;
-      padding: 18px 16px 16px;
+    .btn-secondary:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
     }
 
-    /* Top bar like an app */
-    .top-bar {
+    .hero-photo-wrap {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .top-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #f97316, #ec4899);
-      display: flex;
-      align-items: center;
       justify-content: center;
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.9rem;
     }
 
-    .name-title {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
+    .hero-photo-inner {
+      background: linear-gradient(145deg, #ffffff, #ffe5e5);
+      padding: 6px;
+      border-radius: 26px;
+      box-shadow: var(--shadow);
     }
 
-    .name-main {
-      font-size: 1.1rem;
-      font-weight: 700;
+    .hero-photo-inner img {
+      display: block;
+      width: 260px;
+      height: auto;
+      border-radius: 20px;
+      object-fit: cover;
     }
 
-    .name-sub {
-      font-size: 0.74rem;
-      color: var(--text-muted);
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.5fr);
+      gap: 32px;
     }
 
-    .top-right {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.13em;
-    }
-
-    /* Swipe area */
-    .swipe-area {
-      position: relative;
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 6px;
+      color: var(--text-muted);
       margin-bottom: 10px;
     }
 
-    /* Stacked fake cards in background */
-    .card-stack {
-      position: absolute;
-      width: 86%;
-      max-width: 360px;
-      height: 78%;
-      border-radius: var(--radius-card);
-      background: rgba(255, 255, 255, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      transform: translateY(22px);
-      z-index: 0;
-    }
-
-    .card-stack:nth-child(1) {
-      transform: translateY(28px) scale(0.96);
-      opacity: 0.5;
-    }
-
-    .card-stack:nth-child(2) {
-      transform: translateY(16px) scale(0.98);
-      opacity: 0.7;
-    }
-
-    /* Main card */
     .card {
-      position: relative;
-      z-index: 2;
-      width: 90%;
-      max-width: 380px;
-      height: 80%;
-      background: var(--card-bg);
-      border-radius: var(--radius-card);
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transform-origin: center;
-      transition: transform var(--transition-fast), opacity var(--transition-fast);
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
     }
 
-    .card.swipe-left {
-      transform: translateX(-120px) rotate(-10deg);
-      opacity: 0;
+    .card + .card {
+      margin-top: 15px;
     }
 
-    .card.swipe-reset {
-      transform: translateX(0) rotate(0deg);
-      opacity: 1;
-    }
-
-    /* Card visual top section */
-    .card-banner {
-      height: 42%;
-      background: linear-gradient(135deg, #f97316, #ec4899, #6366f1);
-      position: relative;
-    }
-
-    .card-label {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #f9fafb;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-    }
-
-    .card-mode-pill {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.85);
-      color: #111827;
-      font-size: 0.7rem;
-    }
-
-    .card-meta-bottom {
-      position: absolute;
-      bottom: 12px;
-      left: 14px;
-      right: 14px;
+    .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
-      color: #f9fafb;
-    }
-
-    .card-count {
-      font-size: 0.78rem;
-      opacity: 0.9;
-    }
-
-    .card-tagline {
-      font-size: 0.74rem;
-      text-align: right;
-      opacity: 0.9;
-    }
-
-    /* Card content area */
-    .card-content {
-      flex: 1;
-      padding: 18px 16px 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .card-text-block {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
     }
 
     .card-title {
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-weight: 600;
     }
 
-    .card-subtitle {
+    .card-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .card-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 6px;
+      font-size: 0.78rem;
+    }
+
+    .badge {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #8b1b1b;
+      border: 1px solid rgba(198, 40, 40, 0.2);
+      white-space: nowrap;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 6px;
       font-size: 0.9rem;
       color: var(--text-muted);
     }
 
-    .card-body {
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-top: 4px;
+    ul li {
+      margin-bottom: 4px;
+      padding-left: 16px;
+      position: relative;
     }
 
-    .chip-row {
+    ul li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .skills-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 6px;
     }
 
-    .chip {
-      font-size: 0.72rem;
-      padding: 4px 9px;
+    .skill-pill {
+      font-size: 0.8rem;
+      padding: 5px 11px;
       border-radius: 999px;
-      background: #eff6ff;
-      color: #1d4ed8;
+      background: #f3f4ff;
+      border: 1px solid #e0e0ea;
+      color: #374151;
     }
 
-    .card-footer-text {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 0.78rem;
+    .contact-list {
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
 
-    .small-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--accent-tag);
-      font-weight: 600;
+    .contact-list a {
+      font-weight: 500;
     }
 
-    /* Bottom controls */
-    .bottom-controls {
-      height: 90px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .buttons-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-    }
-
-    .swipe-btn-wrapper {
-      width: 68px;
-      height: 68px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
-      background: #f9fafb;
-    }
-
-    .swipe-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #ffffff;
-      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out;
-    }
-
-    .swipe-btn:active {
-      transform: scale(0.95);
-      box-shadow: none;
-    }
-
-    .btn-nope {
-      background: var(--accent-nope);
-    }
-
-    .btn-info {
-      background: var(--accent-info);
-    }
-
-    .btn-nope::before {
-      content: "×";
-    }
-
-    .btn-info::before {
-      content: "i";
-      font-size: 1.6rem;
-      font-weight: 800;
-    }
-
-    .swipe-hint {
-      font-size: 0.74rem;
-      color: #f3f4f6;
+    footer {
+      margin-top: 42px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
       text-align: center;
-    }
-
-    @media (max-height: 650px) {
-      .app-shell {
-        height: 620px;
-      }
-      .swipe-area {
-        margin-bottom: 4px;
-      }
-      .bottom-controls {
-        height: 80px;
-      }
     }
   </style>
 </head>
 <body>
-  <div class="app-shell">
-    <!-- Top bar -->
-    <div class="top-bar">
-      <div class="top-left">
-        <div class="avatar">JE</div>
-        <div class="name-title">
-          <div class="name-main">Julianna Elise</div>
-          <div class="name-sub">Swipe through my skills & story</div>
+  <div class="page">
+    <header>
+      <div class="hero-text">
+        <div class="hero-subtitle">Analytics · Strategy · Storytelling</div>
+        <h1>Julianna Elise Hanson</h1>
+        <p class="hero-tagline">
+          Business Analytics &amp; Marketing student using data to improve decisions,
+          experiences, and outcomes — from NFL performance to student success.
+        </p>
+        <div class="hero-meta">
+          <span class="pill">Haslam College of Business · UT Knoxville</span>
+          <span class="pill">Business Analytics &amp; Marketing</span>
+          <span class="pill">GPA 4.00</span>
+        </div>
+        <div class="hero-actions">
+          <a href="Hanson_Resume.pdf" class="btn btn-primary" target="_blank">
+            View Résumé
+          </a>
+          <a href="NFL_Analysis_Report.pdf" class="btn btn-secondary" target="_blank">
+            NFL Analytics Report
+          </a>
         </div>
       </div>
-      <div class="top-right">
-        LIVE PORTFOLIO
-      </div>
-    </div>
 
-    <!-- Swipe area -->
-    <div class="swipe-area">
-      <!-- background “stacked” cards -->
-      <div class="card-stack"></div>
-      <div class="card-stack"></div>
-
-      <!-- main card -->
-      <article id="card" class="card">
-        <div class="card-banner">
-          <div id="card-category-label" class="card-label">CATEGORY</div>
-          <div id="card-mode" class="card-mode-pill">Summary</div>
-          <div class="card-meta-bottom">
-            <div id="card-count" class="card-count">1 / N</div>
-            <div class="card-tagline">Left = Next · Right = More Info</div>
-          </div>
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-inner">
+          <!-- Replace 'headshot.jpg' with your actual image file name if different -->
+          <img src="headshot.jpg" alt="Headshot of Julianna Elise Hanson" />
         </div>
+      </div>
+    </header>
 
-        <div class="card-content">
-          <div class="card-text-block">
-            <div id="card-title" class="card-title">Title</div>
-            <div id="card-subtitle" class="card-subtitle">Subtitle</div>
-            <div id="card-body" class="card-body">
-              Body text goes here.
+    <main>
+      <!-- Left column: projects & experience -->
+      <div>
+        <section>
+          <h2>Selected Analytics Projects</h2>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">NFL Passing Analytics</div>
+              <div class="card-meta">R · nflfastR · 2019–2023 Seasons</div>
             </div>
-            <div id="chip-row" class="chip-row"></div>
+            <div class="card-badge-row">
+              <span class="badge">Sports Analytics</span>
+              <span class="badge">Regression &amp; Correlation</span>
+            </div>
+            <p>
+              Built an end-to-end study of quarterback performance using five years of
+              play-by-play data, focusing on passing efficiency and decision-making. The
+              project used feature engineering, exploratory visualization, and correlation
+              analysis to surface patterns that could support talent evaluation and strategy.
+            </p>
+            <ul>
+              <li>
+                Filtered and aggregated nflfastR data to isolate full-season QB stats and key
+                KPIs such as attempts, completions, air yards, and yards after catch.
+              </li>
+              <li>
+                Quantified relationships like attempts vs. completions (with an almost
+                perfect Pearson correlation) and air yards vs. YAC using Spearman
+                correlation to handle outliers.
+              </li>
+              <li>
+                Translated technical results into plain-language insights for decision-makers,
+                highlighting how passing volume and route depth affect offensive efficiency.
+              </li>
+            </ul>
           </div>
 
-          <div class="card-footer-text">
-            <div>
-              <div class="small-label">Card type</div>
-              <span id="card-type">Skill</span>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Airline Operations KPI Dashboard</div>
+              <div class="card-meta">Power BI · SQL · Excel</div>
             </div>
-            <div id="view-state" class="view-state">
-              Currently viewing: Summary
+            <div class="card-badge-row">
+              <span class="badge">Operations Analytics</span>
+              <span class="badge">Simulation</span>
+            </div>
+            <p>
+              Designed an interactive dashboard to track delay and cancellation performance
+              by route, carrier, and season. Combined SQL, Excel, and Power BI to help
+              stakeholders see where delays originate and how schedule changes affect the
+              system.
+            </p>
+            <ul>
+              <li>
+                Wrote SQL queries to compute on-time rates, completion factors, and
+                controllable delay minutes by route and airline.
+              </li>
+              <li>
+                Built a scheduling scenario that suggested roughly a double-digit percentage
+                reduction in controllable delay minutes, illustrating the impact of better
+                sequencing and buffers.
+              </li>
+              <li>
+                Presented metrics in a clean visual layout with drill-downs to support
+                “what-if” conversations around network changes.
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Student Success Dashboards</div>
+              <div class="card-meta">Excel · R · Tableau</div>
+            </div>
+            <div class="card-badge-row">
+              <span class="badge">People Analytics</span>
+              <span class="badge">KPI Reporting</span>
+            </div>
+            <p>
+              At UTK, I build and maintain dashboards that track participation and outcomes
+              for tutoring and Supplemental Instruction programs, helping the team respond
+              quickly to where students need the most support.
+            </p>
+            <ul>
+              <li>
+                Cleaned and standardized data from multiple systems; automated refreshes so
+                KPIs stay current without manual updates.
+              </li>
+              <li>
+                Used regression and clustering to segment students by engagement patterns,
+                informing outreach and session design.
+              </li>
+              <li>
+                Communicated trends in a way that instructors, directors, and fellow
+                students can act on without needing to be “data people.”
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Experience</h2>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                Supplemental Instruction Leader &amp; Tutor
+              </div>
+              <div class="card-meta">UT Knoxville · 2024 – Present</div>
+            </div>
+            <p>
+              Lead collaborative math sessions and one-on-one tutoring for students in
+              Finite Math, Calculus, and Mathematical Reasoning. I focus on frameworks,
+              not just answers—teaching students how to structure problems and build
+              confidence.
+            </p>
+            <ul>
+              <li>
+                Facilitate 5+ weekly sessions and design worksheets, practice exams, and
+                review activities.
+              </li>
+              <li>
+                Track attendance and assessment results in Excel dashboards to see which
+                strategies are working best.
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">UTK Data Dashboard Assistant</div>
+              <div class="card-meta">2024 – Present</div>
+            </div>
+            <p>
+              Support the Vol Study Center by improving data pipelines and reporting
+              around academic support programs.
+            </p>
+            <ul>
+              <li>
+                Improved reporting accuracy by cleaning and standardizing core datasets
+                before they reach decision-makers.
+              </li>
+              <li>
+                Helped automate Excel-based dashboards and experimented with predictive
+                models in R to identify at-risk students earlier.
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">CityLine Air Conditioning – Dispatcher</div>
+              <div class="card-meta">Dallas, TX · 2021 – 2024</div>
+            </div>
+            <p>
+              Coordinated daily service routes, documentation, and customer updates for a
+              busy HVAC company — early experience where I learned to be calm, structured,
+              and customer-focused on hectic days.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right column: skills & contact -->
+      <aside>
+        <section>
+          <h2>Skills</h2>
+          <div class="card">
+            <div class="card-title">Data &amp; Tools</div>
+            <div class="skills-grid">
+              <span class="skill-pill">R (tidyverse, ggplot2)</span>
+              <span class="skill-pill">SQL</span>
+              <span class="skill-pill">Excel (Power Query, PivotTables)</span>
+              <span class="skill-pill">Tableau</span>
+              <span class="skill-pill">Power BI</span>
+              <span class="skill-pill">Alteryx</span>
+              <span class="skill-pill">GitHub</span>
+              <span class="skill-pill">QuickBooks</span>
+            </div>
+
+            <div class="card-title" style="margin-top:12px;">Analytics</div>
+            <div class="skills-grid">
+              <span class="skill-pill">Regression</span>
+              <span class="skill-pill">Classification</span>
+              <span class="skill-pill">Clustering</span>
+              <span class="skill-pill">Feature Engineering</span>
+              <span class="skill-pill">Predictive Modeling</span>
+              <span class="skill-pill">KPI Design</span>
+            </div>
+
+            <div class="card-title" style="margin-top:12px;">Coursework &amp; Focus</div>
+            <div class="skills-grid">
+              <span class="skill-pill">Business Analytics</span>
+              <span class="skill-pill">Marketing</span>
+              <span class="skill-pill">Information Management</span>
+              <span class="skill-pill">Public Policy Analytics</span>
             </div>
           </div>
-        </div>
-      </article>
-    </div>
+        </section>
 
-    <!-- Bottom buttons -->
-    <div class="bottom-controls">
-      <div class="buttons-row">
-        <div class="swipe-btn-wrapper">
-          <button id="btn-nope" class="swipe-btn btn-nope" type="button"></button>
-        </div>
-        <div class="swipe-btn-wrapper">
-          <button id="btn-info" class="swipe-btn btn-info" type="button"></button>
-        </div>
-      </div>
-      <div class="swipe-hint">
-        Tap × or press ← to skip · Tap i or press → for more detail
-      </div>
-    </div>
+        <section>
+          <h2>Leadership &amp; Service</h2>
+          <div class="card">
+            <p style="font-size:0.92rem; color:var(--text-muted);">
+              I care a lot about making analytics useful to real people — especially students.
+              I’m involved with:
+            </p>
+            <ul>
+              <li>Business Fellows Honors Program at UTK.</li>
+              <li>
+                Teach For America’s virtual tutoring programs for under-resourced students.
+              </li>
+              <li>
+                Student engagement work through the Vol Study Center and Supplemental
+                Instruction.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Contact</h2>
+          <div class="card">
+            <div class="contact-list">
+              <p><strong>Email:</strong> <a href="mailto:juliannaelisehanson@gmail.com">juliannaelisehanson@gmail.com</a></p>
+              <p><strong>Alt Email:</strong> <a href="mailto:csy159@vols.utk.edu">csy159@vols.utk.edu</a></p>
+              <p><strong>Phone:</strong> (214) 223-9111</p>
+              <p>
+                <strong>LinkedIn:</strong>
+                <a href="https://www.linkedin.com/in/juliannahanson" target="_blank">
+                  linkedin.com/in/juliannahanson
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Julianna Elise Hanson · Built with HTML &amp; CSS · Hosted on GitHub Pages
+    </footer>
   </div>
 
   <script>
-    // Card data: summary vs details
-    const cards = [
-      /* SKILLS */
-      {
-        category: "Skills",
-        title: "Data Analytics & Cleaning",
-        subtitle: "Turning messy info into clean, decision-ready stories.",
-        summary:
-          "I work in R, Excel, and SQL to clean datasets, build basic models, and create visuals that actually make sense to non-data people.",
-        details:
-          "Example work: cleaning student success data for the Vol Study Center, building churn and classification models in BAS courses, and exploring NFL and airline performance data for class projects. I like finding small insights that change how people think about a problem.",
-        chips: ["R", "Excel", "SQL basics", "Visualization"],
-        type: "Skill"
-      },
-      {
-        category: "Skills",
-        title: "Teaching, Tutoring & SI Leadership",
-        subtitle: "Helping students feel less stressed and more confident with numbers.",
-        summary:
-          "From SI sessions to one-on-one tutoring, I design spaces where people can ask the questions they’re nervous to ask in class and actually feel okay about it.",
-        details:
-          "Roles include SI Leader for Math 119 and analytics, private tutor, Teach For America Ignite Fellow, and tutor at the Math Place. I mix quick concept refreshers, guided practice, and a lot of encouragement so students leave feeling more capable, not more overwhelmed.",
-        chips: ["Facilitation", "Lesson design", "Peer support"],
-        type: "Skill"
-      },
-      {
-        category: "Skills",
-        title: "Web & Portfolio Projects",
-        subtitle: "Little experiments like this swipe interface.",
-        summary:
-          "I enjoy playing with front-end projects and interactive ways to share what I’m working on, including this colorful GitHub Pages site.",
-        details:
-          "This site is written in HTML, CSS, and JavaScript, and hosted on GitHub Pages. I’m using it as a sandbox to practice layouts, color, and interactive storytelling that feels more like a product than a static resume.",
-        chips: ["HTML", "CSS", "JavaScript basics", "GitHub"],
-        type: "Skill"
-      },
-
-      /* TUTORING & SI EXPERIENCE */
-      {
-        category: "Tutoring & SI",
-        title: "SI Leader · Math & Analytics",
-        subtitle: "Guided group sessions, practice problems, and exam prep.",
-        summary:
-          "As an SI Leader, I run review sessions where we break down tricky topics, work examples together, and practice test-style questions.",
-        details:
-          "I focus on modeling how to think through a problem step-by-step, not just dumping answers. I also try to make sessions low-pressure so students don’t feel judged for not knowing something yet.",
-        chips: ["Group facilitation", "Session planning", "Exam prep"],
-        type: "Experience"
-      },
-      {
-        category: "Tutoring & SI",
-        title: "Teach For America · Ignite Fellow",
-        subtitle: "Virtual small-group math tutor.",
-        summary:
-          "I support K–12 students in small groups, helping them build confidence with math concepts they’ve struggled with.",
-        details:
-          "I partner with classroom teachers, design short interactive activities, and celebrate small wins. The work is a mix of relationship-building, patience, and figuring out which explanation will finally make something click.",
-        chips: ["Equity in education", "Relationship-building"],
-        type: "Experience"
-      },
-      {
-        category: "Tutoring & SI",
-        title: "Private Tutor · A Tutor’s Touch",
-        subtitle: "One-on-one support tailored to each student.",
-        summary:
-          "I work directly with students (and often their parents) to set goals, track progress, and rebuild confidence in math.",
-        details:
-          "Sessions often include homework help, concept review, and test prep. I pay attention to where students shut down, and look for ways to make the material feel more doable instead of overwhelming.",
-        chips: ["Goal setting", "Progress tracking"],
-        type: "Experience"
-      },
-      {
-        category: "Tutoring & SI",
-        title: "UTK Math Place",
-        subtitle: "Drop-in tutoring for college algebra and beyond.",
-        summary:
-          "At the Math Place, I help students who pop in with everything from quick homework questions to full-on panic before an exam.",
-        details:
-          "I’ve learned how to quickly diagnose where someone is stuck, and how to guide them to do the heavy lifting instead of just watching me solve problems. It’s great practice in communication and patience.",
-        chips: ["On-demand support", "Explaining concepts"],
-        type: "Experience"
-      },
-
-      /* EXTRACURRICULARS & PROJECTS */
-      {
-        category: "Extracurriculars",
-        title: "Vol Study Center · Data Cleaning",
-        subtitle: "Helping make student support data usable.",
-        summary:
-          "I’ve helped clean and organize data for the Vol Study Center so people can better understand how students are using support services.",
-        details:
-          "That includes things like standardizing labels, handling missing values, and making sure the final dataset makes sense to whoever has to analyze it next.",
-        chips: ["Data quality", "Spreadsheets"],
-        type: "Project"
-      },
-      {
-        category: "Extracurriculars",
-        title: "Haslam Business Fellows",
-        subtitle: "Leadership, development, and career exploration.",
-        summary:
-          "Selected for a cohort focused on leadership development, networking, and exposure to different business paths.",
-        details:
-          "Through Business Fellows, I’ve gained more clarity on how my analytics and teaching skills can fit into roles in consulting, product, or education-adjacent careers.",
-        chips: ["Leadership", "Networking"],
-        type: "Program"
-      },
-
-      /* PASSIONS & PERSONAL */
-      {
-        category: "Passions",
-        title: "Snowboarding & the Outdoors",
-        subtitle: "Most myself in the mountains or on a trail.",
-        summary:
-          "I love spending time outside, especially snowboarding and exploring mountain towns. It keeps me grounded and refuels me for everything else.",
-        details:
-          "Being outside is also why I care about conservation and land management. It’s hard to sit in class and not think about how policies and business decisions affect actual landscapes.",
-        chips: ["Snowboarding", "Nature"],
-        type: "Personal"
-      },
-      {
-        category: "Passions",
-        title: "Everett’s 8800 & Seasonal Work",
-        subtitle: "Hospitality, hustle, and long-shift energy.",
-        summary:
-          "Working seasonal roles like Everett’s 8800 has taught me a lot about customer experience, teamwork, and grit.",
-        details:
-          "You learn quickly how to read people, anticipate needs, and stay kind even when you’re tired. Those skills carry over into tutoring, group work, and leadership roles.",
-        chips: ["Customer experience", "Work ethic"],
-        type: "Personal"
-      },
-      {
-        category: "Passions",
-        title: "Boys & Girls Club",
-        subtitle: "Helping create safe, fun spaces for kids.",
-        summary:
-          "Working with youth at the Boys & Girls Club has made me more patient, playful, and aware of how much environment matters for kids.",
-        details:
-          "I care a lot about making sure students and kids feel seen, especially those who might not always feel like school or programs were built for them.",
-        chips: ["Youth development", "Community"],
-        type: "Personal"
-      }
-    ];
-
-    // State
-    let currentIndex = 0;
-    let showingDetails = false;
-
-    // Elements
-    const cardEl = document.getElementById("card");
-    const categoryLabelEl = document.getElementById("card-category-label");
-    const modeEl = document.getElementById("card-mode");
-    const countEl = document.getElementById("card-count");
-    const titleEl = document.getElementById("card-title");
-    const subtitleEl = document.getElementById("card-subtitle");
-    const bodyEl = document.getElementById("card-body");
-    const chipsEl = document.getElementById("chip-row");
-    const typeEl = document.getElementById("card-type");
-    const viewStateEl = document.getElementById("view-state");
-    const btnNope = document.getElementById("btn-nope");
-    const btnInfo = document.getElementById("btn-info");
-
-    function renderCard() {
-      const card = cards[currentIndex];
-      showingDetails = false;
-
-      categoryLabelEl.textContent = card.category;
-      modeEl.textContent = "Summary";
-      viewStateEl.textContent = "Currently viewing: Summary";
-
-      titleEl.textContent = card.title;
-      subtitleEl.textContent = card.subtitle;
-      bodyEl.textContent = card.summary;
-      typeEl.textContent = card.type;
-      countEl.textContent = `${currentIndex + 1} / ${cards.length}`;
-
-      chipsEl.innerHTML = "";
-      card.chips.forEach((chip) => {
-        const span = document.createElement("span");
-        span.className = "chip";
-        span.textContent = chip;
-        chipsEl.appendChild(span);
-      });
-    }
-
-    function goToNextCard() {
-      cardEl.classList.remove("swipe-left", "swipe-reset");
-      cardEl.classList.add("swipe-left");
-
-      setTimeout(() => {
-        currentIndex = (currentIndex + 1) % cards.length;
-        cardEl.classList.remove("swipe-left");
-        cardEl.classList.add("swipe-reset");
-        renderCard();
-      }, 220);
-    }
-
-    // Left: skip card
-    btnNope.addEventListener("click", () => {
-      goToNextCard();
-    });
-
-    // Right: toggle details for current card
-    btnInfo.addEventListener("click", () => {
-      const card = cards[currentIndex];
-      if (!showingDetails) {
-        bodyEl.textContent = card.details;
-        modeEl.textContent = "Details";
-        viewStateEl.textContent = "Currently viewing: Details (press × or swipe left for next card)";
-        showingDetails = true;
-      } else {
-        bodyEl.textContent = card.summary;
-        modeEl.textContent = "Summary";
-        viewStateEl.textContent = "Currently viewing: Summary";
-        showingDetails = false;
-      }
-    });
-
-    // Keyboard controls
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") {
-        btnNope.click();
-      } else if (e.key === "ArrowRight") {
-        btnInfo.click();
-      }
-    });
-
-    // Initial render
-    renderCard();
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
 
-     
-         
+ 
    
     
 
