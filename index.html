@@ -141,17 +141,19 @@ main {
       justify-content: center;
     }
 
-    /* New: tighter crop + centered face */
     .hero-photo img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: 50% 20%;   /* move image up a bit */
-      transform: scale(1.22);     /* zoom in slightly */
-      border: 4px solid #ffffff;
-      background: #e5e7eb;
-    }
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffffff;
+  background: #e5e7eb;
+
+  /* tighter crop, shifted left and up */
+  transform: scale(1.25);     /* zoom in a bit more */
+  object-position: 35% 20%;   /* 35% left/right, 20% up/down */
+}
+
 
     section {
       margin-bottom: 3rem;
@@ -338,7 +340,11 @@ main {
         align-items: flex-start;
       }
     }
-  </style>
+   </style>
+</head>
+<body>
+
+  <main>
     <!-- HERO -->
     <section class="hero">
 
